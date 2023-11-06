@@ -4,8 +4,6 @@ import java.util.Map;
 
 import org.apache.camel.builder.RouteBuilder;
 
-// import io.quarkus.arc.lookup.LookupIfProperty.List;
-
 public class JdbcRoutes extends RouteBuilder {
     @Override
     public void configure() throws Exception {
