@@ -21,7 +21,7 @@ public class JdbcEtlTest {
                     .then()
                     .extract().asString();
 
-            return "(Grand,1)(Middle,0)(Small,-1)".equals(hotelReviews);
+            return "(\"Grand Hotel\",1)(\"Middle Hotel\",0)(\"Small Hotel\",-1)".equals(hotelReviews);
         });
     }
 }
