@@ -17,7 +17,7 @@ public class JdbcRoutes extends RouteBuilder {
             .to("jdbc:target_db")
             .setBody().simple("SELECT * FROM Source")
             .to("jdbc:source_db")
-            .log("Selecting source data")
+            .log("Extracting data from source database")
             .split(body())
             .process(exchange -> {
                 Map<String, Object> sourceData = exchange.getIn().getBody(Map.class);
@@ -25,9 +25,9 @@ public class JdbcRoutes extends RouteBuilder {
                 int mappedReview = reviewMapping.getOrDefault(review, 0);
                 sourceData.put("review", mappedReview);
             })
+            .log("-> Transforming review for hotel '${body[hotel_name]}'")
             .setBody().simple("INSERT INTO Target (id, hotel_name, price, review) VALUES(${body[id]}, '${body[hotel_name]}', ${body[price]}, ${body[review]})")
             .to("jdbc:target_db")
-            .log("Transformed and inserted data into target");
+            .log("-> Loading transformed data in target database");
     }
 }
-
